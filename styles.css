@@ -712,7 +712,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--cream);
+  background: #fafafa;
   width: 100%; max-width: 1100px;
   margin: 1rem;
   height: min(90vh, 820px);
