@@ -227,10 +227,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   transition: opacity 1.2s;
 }
 .hero-bg img.active { opacity: 1; }
-.hero-bg::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(29,52,97,0.7), rgba(29,52,97,0.4) 50%, transparent);
-}
+
 .hero-line {
   position: absolute;
   left: 1.5rem; top: 0; bottom: 0;
@@ -632,6 +629,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 .filter-bar .inner {
   display: flex; gap: 0.75rem; padding: 1rem 0;
   overflow-x: auto;
+  justify-content: center;
 }
 .filter-btn {
   flex-shrink: 0;
@@ -712,14 +710,17 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 }
 .modal {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background: var(--cream);
-  width: 100%; max-width: 72rem;
+  width: 100%; max-width: 1100px;
   margin: 1rem;
-  height: 85vh;
+  height: min(90vh, 820px);
   box-shadow: 0 25px 50px rgba(0,0,0,0.25);
   overflow: hidden;
 }
 .modal-head {
+  flex: 0 0 auto;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1rem 1.5rem;
   border-bottom: 1px solid var(--stone-silk);
@@ -732,8 +733,9 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 .modal-close:hover { color: var(--navy); }
 #cal-embed {
   position: relative;
+  flex: 1 1 auto;
   width: 100%;
-  height: calc(85vh - 57px);
+  min-height: 0;
   overflow: hidden;
 }
 #cal-embed > div[id^="cal-embed-"] {
@@ -883,6 +885,8 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   display: flex; flex-direction: column; align-items: center;
   gap: 1.5rem;
   transition: border-color .3s;
+  text-decoration: none;
+  color: inherit;
 }
 @media (min-width: 640px) { .sponsor-card { padding: 3rem; gap: 2rem; } }
 .sponsor-card:hover { border-color: rgba(232,74,43,0.4); }
