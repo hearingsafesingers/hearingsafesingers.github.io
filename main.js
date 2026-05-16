@@ -240,7 +240,10 @@ function initCalModal() {
   if (!modal) return;
   const openers = document.querySelectorAll('[data-open-cal]');
   const closeBtn = modal.querySelector('.modal-close');
+  const extraCloseBtns = modal.querySelectorAll('[data-close-cal]');
   const embedHost = modal.querySelector('#cal-embed');
+  const thankyou = modal.querySelector('#cal-thankyou');
+  const modalHeadTitle = modal.querySelector('.modal-head p');
   const backdrop = modal;
   let scriptLoaded = false;
   const renderedNamespaces = new Set();
@@ -342,6 +345,13 @@ function initCalModal() {
   const open = (btn) => {
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
+    // Reset thank-you state each time the modal opens.
+    if (thankyou) thankyou.hidden = true;
+    thankYouShown = false;
+    if (embedHost) embedHost.style.display = '';
+    if (modalHeadTitle && modalHeadTitle.dataset.originalText) {
+      modalHeadTitle.textContent = modalHeadTitle.dataset.originalText;
+    }
     const calLink = btn?.dataset.calLink || 'hearingsafesingers';
     const namespace = btn?.dataset.calNamespace || null;
     renderEmbed(calLink, namespace);
@@ -351,8 +361,45 @@ function initCalModal() {
     document.body.style.overflow = '';
   };
 
+  let thankYouShown = false;
+  const showThankYou = () => {
+    if (!thankyou) return;
+    if (embedHost) embedHost.style.display = 'none';
+    if (modalHeadTitle) {
+      if (!modalHeadTitle.dataset.originalText) {
+        modalHeadTitle.dataset.originalText = modalHeadTitle.textContent;
+      }
+      modalHeadTitle.textContent = 'Booking confirmed';
+    }
+    thankyou.hidden = false;
+    // Fire Meta Pixel conversion exactly once per booking flow.
+    if (!thankYouShown) {
+      thankYouShown = true;
+      try {
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'CompleteRegistration', {
+            content_name: 'Cal.com booking',
+            content_category: currentNamespace || 'default'
+          });
+        }
+      } catch (err) { /* no-op */ }
+    }
+  };
+
+  // Listen for Cal.com booking-successful events. Cal posts a window message
+  // whenever a booking flow completes, regardless of namespace.
+  window.addEventListener('message', (e) => {
+    const data = e && e.data;
+    if (!data) return;
+    const type = (typeof data === 'string') ? data : (data.type || data.event || '');
+    if (typeof type === 'string' && /booking[_-]?success(ful)?/i.test(type)) {
+      showThankYou();
+    }
+  });
+
   openers.forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); open(b); }));
   if (closeBtn) closeBtn.addEventListener('click', close);
+  extraCloseBtns.forEach(b => b.addEventListener('click', close));
   backdrop.addEventListener('click', (e) => {
     if (e.target === backdrop) close();
   });

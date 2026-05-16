@@ -95,6 +95,12 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   color: var(--cream);
 }
 .btn-outline-light:hover { border-color: var(--cream); }
+.btn-outline {
+  border: 1px solid rgba(29,52,97,0.3);
+  color: var(--navy);
+  background: transparent;
+}
+.btn-outline:hover { border-color: var(--navy); }
 .btn-large { padding: 1.25rem 2.5rem; font-size: 1.125rem; }
 
 .link-underline {
@@ -227,6 +233,13 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   transition: opacity 1.2s;
 }
 .hero-bg img.active { opacity: 1; }
+/* Light tint over photos so the navy hero text stays readable. */
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(250,250,250,0.55);
+  pointer-events: none;
+}
 
 .hero-line {
   position: absolute;
@@ -241,15 +254,15 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   width: 100%;
 }
 .hero h1 {
-  color: var(--cream);
+  color: var(--navy);
   font-weight: 600;
   font-size: clamp(2.5rem, 6vw, 4.8rem);
   max-width: 680px;
   margin-bottom: 2rem;
 }
-.hero h1 em { color: var(--orange); font-style: italic; }
+.hero h1 em { color: var(--navy); font-style: italic; }
 .hero .lead {
-  color: var(--cream);
+  color: var(--navy);
   margin-bottom: 2.5rem;
   max-width: 28rem;
 }
@@ -333,7 +346,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--orange);
+  color: var(--navy);
   line-height: 1.2;
 }
 .about-badge p:last-child {
@@ -751,6 +764,45 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   height: 100% !important;
   border: 0;
   display: block;
+}
+
+/* Cal thank-you panel (shown after successful booking) */
+.cal-thankyou {
+  position: absolute;
+  inset: 0;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  z-index: 2;
+}
+.cal-thankyou[hidden] { display: none; }
+.cal-thankyou-inner {
+  max-width: 36rem;
+  text-align: center;
+}
+.cal-thankyou-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 1.5rem;
+  border-radius: 999px;
+  background: rgba(232,74,43,0.12);
+  color: var(--orange);
+  display: flex; align-items: center; justify-content: center;
+}
+.cal-thankyou h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 1rem;
+  color: var(--navy);
+}
+.cal-thankyou-body {
+  color: rgba(29,52,97,0.8);
+  margin-bottom: 2rem;
+}
+.cal-thankyou-actions {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  justify-content: center;
 }
 
 /* ===== Contact page ===== */
