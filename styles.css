@@ -371,9 +371,10 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 }
 .testimonials-grid {
   display: grid; gap: 2rem;
-  max-width: 56rem; margin: 0 auto;
+  max-width: 80rem; margin: 0 auto;
 }
 @media (min-width: 768px) { .testimonials-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .testimonials-grid { grid-template-columns: 1fr 1fr 1fr; } }
 .testimonial {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
