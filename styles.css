@@ -254,7 +254,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   width: 100%;
 }
 .hero h1 {
-  color: var(--navy);
+  color: var(--orange);
   font-weight: 600;
   font-size: clamp(2.5rem, 6vw, 4.8rem);
   max-width: 680px;
@@ -482,7 +482,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   padding: 2.5rem 0;
   display: flex; flex-direction: column; gap: 2rem;
 }
-@media (min-width: 640px) { .footer-locations { flex-direction: row; } }
+@media (min-width: 640px) { .footer-locations { flex-direction: row; align-items: center; } }
 .footer-locations a {
   display: flex; align-items: flex-start; gap: 0.75rem;
   transition: color .3s;
@@ -496,6 +496,24 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
 .footer-locations .addr {
   color: rgba(250,250,250,0.7); font-size: 0.875rem;
 }
+.footer-partners {
+  display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
+  gap: 1.5rem; flex-wrap: wrap;
+}
+@media (min-width: 640px) { .footer-partners { margin-left: auto; gap: 2.5rem; } }
+.footer-partners .label {
+  color: rgba(250,250,250,0.4); font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.2em;
+}
+.footer-partners .logos { display: flex; flex-direction: row; align-items: center; gap: 1.5rem; }
+@media (min-width: 640px) { .footer-partners .logos { gap: 2.5rem; } }
+.footer-partners img {
+  height: 3.5rem; width: auto; object-fit: contain;
+  opacity: 0.7; transition: opacity .3s;
+  filter: brightness(0) invert(1);
+}
+@media (min-width: 640px) { .footer-partners img { height: 4rem; } }
+.footer-partners img:hover { opacity: 1; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 2rem;
@@ -617,6 +635,9 @@ button { font-family: inherit; cursor: pointer; border: 0; background: transpare
   padding: 2.5rem;
   margin-bottom: 4rem;
 }
+.method-section { padding-bottom: 0; }
+.method-section .method-card { margin-bottom: 0; }
+.method-section + .cta-banner { padding-top: 4rem; }
 @media (min-width: 768px) { .method-card { padding: 3.5rem; } }
 .method-card h2 {
   font-weight: 600;
